@@ -2,99 +2,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SafeCheck - Stay Safe Online</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 25px 16px;
-      font-family: Arial, sans-serif;
-      background: #f1f5f9;
-      color: #172033;
-    }
-    main {
-      max-width: 600px;
-      margin: 30px auto;
-      background: white;
-      padding: 24px;
-      border-radius: 18px;
-      box-shadow: 0 5px 25px #0001;
-    }
-    h1 { color: #087f8c; }
-    textarea {
-      width: 100%;
-      height: 140px;
-      box-sizing: border-box;
-      padding: 12px;
-      margin: 12px 0;
-      border: 1px solid #ccd5df;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-    button {
-      width: 100%;
-      padding: 14px;
-      border: 0;
-      border-radius: 10px;
-      background: #087f8c;
-      color: white;
-      font-size: 16px;
-    }
-    #result {
-      margin-top: 18px;
-      line-height: 1.6;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#087f8c">
+<meta name="description" content="SafeCheck helps identify common warning signs in suspicious messages.">
+<title>SafeCheck - Think Before You Trust</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:18px;font-family:Arial,sans-serif;background:#eef4f8;color:#172033}
+header{max-width:1000px;margin:0 auto 22px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{font-size:25px;font-weight:bold;color:#087f8c}
+button,textarea{font:inherit}
+button{cursor:pointer;border:0;border-radius:12px;padding:13px;font-weight:bold}
+#language{background:white;border:1px solid #d5e0e6;color:#172033}
+main{max-width:1000px;margin:auto}
+.hero{padding:20px 5px 28px}
+.tag{color:#087f8c;font-weight:bold;letter-spacing:1.5px}
+h1{font-size:clamp(36px,7vw,58px);line-height:1.08;margin:14px 0}
+h1 span{color:#087f8c}
+p{line-height:1.65}
+.muted{color:#637180;font-size:18px}
+.layout{display:grid;grid-template-columns:1.3fr .7fr;gap:18px;align-items:start}
+.card{background:white;border:1px solid #e0e8ed;border-radius:22px;padding:24px;box-shadow:0 12px 35px #203d5010;margin-bottom:18px}
+h2{margin-top:0}
+label{display:block;font-weight:bold;margin-bottom:9px}
+textarea{width:100%;min-height:180px;resize:vertical;padding:14px;border:1.5px solid #d5e0e6;border-radius:14px;line-height:1.6;background:#fbfdff}
+textarea:focus{outline:2px solid #087f8c}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.primary{background:#087f8c;color:white;flex:1}
+.secondary{background:#e7f4f5;color:#086b74}
+.samples{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.sample{background:#f0f4f7;color:#405162;font-size:13px;padding:9px 12px}
+.result{margin-top:18px;padding:16px;border:1px solid #e0e8ed;border-radius:14px;line-height:1.6}
+.hidden{display:none}
+.high{background:#fff2f0;border-color:#efb9b2}
+.medium{background:#fff8e9;border-color:#edd49b}
+.low{background:#effbf4;border-color:#b8dfc8}
+.result h3{margin:0 0 8px}
+.result ul{padding-left:22px}
+.tips{padding-left:22px;line-height:1.8}
+.note{font-size:14px;color:#637180;line-height:1.6}
+footer{max-width:1000px;margin:24px auto;color:#637180;font-size:14px}
+[dir="rtl"] body,[dir="rtl"] textarea{font-family:Tahoma,Arial,sans-serif}
+[dir="rtl"] .tips,[dir="rtl"] .result ul{padding-left:0;padding-right:22px}
+[dir="rtl"] .tag{letter-spacing:0}
+@media(max-width:720px){.layout{grid-template-columns:1fr}.card{padding:19px}body{padding:14px}.hero{padding-top:12px}header{margin-bottom:10px}}
+</style>
 </head>
 <body>
-  <main>
-    <h1>SafeCheck</h1>
-    <p>Think Before You Trust.</p>
-    <p>Paste a suspicious message below to check
-    for common warning signs.</p>
-
-    <textarea id="message"
-      placeholder="Paste your message here..."></textarea>
-
-    <button onclick="checkMessage()">
-      Check Warning Signs
-    </button>
-
-    <div id="result" role="status"></div>
-
-    <p><small>
-      This basic demo is not an AI detector and
-      cannot confirm whether a message is genuine.
-    </small></p>
-  </main>
-
-  <script>
-    function checkMessage() {
-      const message =
-        document.getElementById("message").value.trim();
-      const result = document.getElementById("result");
-
-      if (!message) {
-        result.textContent = "Please enter a message first.";
-        return;
-      }
-
-      const patterns = [
-        /pay.*(fee|registration|deposit|advance)/i,
-        /password|otp|verification code/i,
-        /urgent|immediately|act now/i,
-        /guaranteed.*(income|profit|job)/i
-      ];
-
-      const found = patterns.some(pattern =>
-        pattern.test(message)
-      );
-
-      result.textContent = found
-        ? "Warning: This message contains a possible risk signal. Verify the sender independently before paying or sharing sensitive information."
-        : "No warning signal was detected by this basic demo. That does not mean the message is safe. Verify the sender and website independently.";
-    }
-  </script>
+<header>
+ <div class="brand">🛡 SafeCheck</div>
+ <button id="language" type="button">اردو میں دیکھیں</button>
+</header>
+<main>
+ <section class="hero">
+  <div class="tag" data-en="A SMARTER PAUSE BEFORE YOU TRUST" data-ur="بھروسا کرنے سے پہلے ایک لمحہ رکیں">A SMARTER PAUSE BEFORE YOU TRUST</div>
+  <h1 data-en-html="Think Before<br><span>You Trust.</span>" data-ur-html="سوچیں، پھر<br><span>بھروسا کریں۔</span>">Think Before<br><span>You Trust.</span></h1>
+  <p class="muted" data-en="Check suspicious SMS messages, emails, job offers and social media messages for common warning signs." data-ur="مشکوک SMS، ای میل، نوکری کی پیشکش اور سوشل میڈیا پیغامات میں خطرے کی عام علامات چیک کریں۔">Check suspicious SMS messages, emails, job offers and social media messages for common warning signs.</p>
+ </section>
+ <div class="layout">
+  <section class="card">
+   <h2 data-en="Check a message" data-ur="پیغام چیک کریں">Check a message</h2>
+   <p class="muted" style="font-size:16px" data-en="Paste the message below. Remove personal information first." data-ur="نیچے پیغام پیسٹ کریں۔ پہلے ذاتی معلومات ہٹا دیں۔">Paste the message below. Remove personal information first.</p>
+   <label for="message" data-en="Message text" data-ur="پیغام کا متن">Message text</label>
+   <textarea id="message" maxlength="10000" placeholder="Paste your message here..."></textarea>
+   <div class="actions">
+    <button class="primary" id="check" data-en="Check warning signs" data-ur="خطرے کی علامات چیک کریں">Check warning signs</button>
+    <button class="secondary" id="clear" data-en="Clear" data-ur="صاف کریں">Clear</button>
+   </div>
+   <div class="samples">
+    <button class="sample" data-example="prize" data-en="Prize example" data-ur="انعام کی مثال">Prize example</button>
+    <button class="sample" data-example="job" data-en="Job example" data-ur="نوکری کی مثال">Job example</button>
+    <button class="sample" data-example="normal" data-en="Normal example" data-ur="عام پیغام">Normal example</button>
+   </div>
+   <div id="result" class="result hidden" aria-live="polite"></div>
+   <p class="note" data-en="This is a basic pattern checker, not an AI detector. It cannot prove that a message is real or fraudulent." data-ur="یہ عام علامات چیک کرنے والا بنیادی ٹول ہے، AI ڈیٹیکٹر نہیں۔ یہ حتمی طور پر ثابت نہیں کر سکتا کہ پیغام اصلی ہے یا فراڈ۔">This is a basic pattern checker, not an AI detector. It cannot prove that a message is real or fraudulent.</p>
+  </section>
+  <aside>
+   <section class="card">
+    <h2 data-en="Stay safe online" data-ur="آن لائن محفوظ رہیں">Stay safe online</h2>
+    <ul class="tips">
+     <li data-en="Never share your OTP, password or PIN." data-ur="اپنا OTP، پاس ورڈ یا PIN کسی کو نہ دیں۔">Never share your OTP, password or PIN.</li>
+     <li data-en="Verify job offers before paying any fee." data-ur="کوئی فیس دینے سے پہلے نوکری کی تصدیق کریں۔">Verify job offers before paying any fee.</li>
+     <li data-en="Check links and website addresses carefully." data-ur="لنکس اور ویب سائٹ کے پتے اچھی طرح چیک کریں۔">Check links and website addresses carefully.</li>
+     <li data-en="Do not trust unexpected prizes or urgent threats." data-ur="اچانک انعام یا فوری دھمکی پر فوراً یقین نہ کریں۔">Do not trust unexpected prizes or urgent threats.</li>
+    </ul>
+   </section>
+   <section class="card">
+    <h2 data-en="Your privacy matters" data-ur="آپ کی رازداری اہم ہے">Your privacy matters</h2>
+    <p data-en="The message is checked inside your browser. This page does not send it to a server." data-ur="پیغام آپ کے براؤزر میں چیک ہوتا ہے۔ یہ صفحہ اسے کسی سرور پر نہیں بھیجتا۔">The message is checked inside your browser. This page does not send it to a server.</p>
+    <p class="note" data-en="Avoid entering private details into any website." data-ur="کسی بھی ویب سائٹ پر نجی معلومات درج کرنے سے گریز کریں۔">Avoid entering private details into any website.</p>
+   </section>
+  </aside>
+ </div>
+</main>
+<footer>
+ <strong>SafeCheck</strong> — <span data-en="Think Before You Trust." data-ur="سوچیں، پھر بھروسا کریں۔">Think Before You Trust.</span>
+ <p data-en="For awareness only. Always verify important messages independently." data-ur="صرف آگاہی کے لیے۔ اہم پیغامات کی الگ ذریعے سے تصدیق ضرور کریں۔">For awareness only. Always verify important messages independently.</p>
+</footer>
+<script>
+const $=id=>document.getElementById(id);
+let lang="en";
+const examples={
+ prize:"Congratulations! You won a prize. Send your password and OTP immediately to claim your reward.",
+ job:"Your job is confirmed. Pay a registration fee today and send your bank OTP to secure your position.",
+ normal:"Hello, our meeting is scheduled for 3 PM tomorrow. Please let me know if you need to change the time."
+};
+const rules=[
+ {w:4,en:"Requests a password, OTP, PIN or secret verification code.",ur:"پاس ورڈ، OTP، PIN یا خفیہ تصدیقی کوڈ مانگتا ہے۔",re:/\b(otp|one.time password|password|passcode|pin code|verification code|recovery code|security code)\b|پاس ?ورڈ|او ٹی پی|پن کوڈ|تصدیقی کوڈ/i},
+ {w:3,en:"Requests an advance, registration or processing fee.",ur:"پیشگی، رجسٹریشن یا پروسیسنگ فیس مانگتا ہے۔",re:/\b(advance fee|registration fee|processing fee|release fee|pay first|pay now|send money|deposit)\b|رجسٹریشن فیس|پیشگی فیس|پہلے پیسے|فیس جمع/i},
+ {w:2,en:"Claims you have unexpectedly won a prize or reward.",ur:"اچانک انعام یا ریوارڈ جیتنے کا دعویٰ کرتا ہے۔",re:/\b(you won|winner|won a prize|claim your prize|claim reward|lottery|free gift|congratulations|cash prize)\b|انعام جیت|مبارک ہو|لاٹری/i},
+ {w:2,en:"Pressures you to act immediately or urgently.",ur:"فوراً کارروائی کرنے کے لیے دباؤ ڈالتا ہے۔",re:/\b(immediately|urgent|act now|right now|limited time|last chance|expires today|final warning)\b|فوراً|جلدی کریں|آخری موقع/i},
+ {w:2,en:"Uses threats or fear to force a response.",ur:"جواب لینے کے لیے دھمکی یا خوف استعمال کرتا ہے۔",re:/\b(arrest|police case|legal action|account suspended|penalty|fine immediately)\b|گرفتار|پولیس کیس|قانونی کارروائی|جرمانہ/i},
+ {w:1,en:"Contains a link. Check its domain carefully.",ur:"اس میں لنک موجود ہے؛ ڈومین اچھی طرح چیک کریں۔",re:/(https?:\/\/|www\.|bit\.ly|tinyurl\.com|t\.me\/)/i},
+ {w:2,en:"May promise easy income or a job in exchange for payment.",ur:"آسان کمائی یا نوکری کے بدلے رقم مانگنے کا اشارہ ہے۔",re:/\b(guaranteed job|job confirmed|pay to secure|job offer.*fee|registration fee.*job|earn \d+ daily)\b|نوکری پکی|گھر بیٹھے کمائیں/i}
+];
+function esc(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function checkMessage(){
+ const t=$("message").value.trim(),r=$("result");
+ if(!t){r.className="result";r.textContent=lang==="en"?"Please paste a message first.":"براہِ کرم پہلے کوئی پیغام پیسٹ کریں۔";return;}
+ const found=rules.filter(x=>x.re.test(t));
+ const score=found.reduce((a,x)=>a+x.w,0);
+ const level=score>=5?"high":score>=2?"medium":"low";
+ const title=lang==="en"?({high:"Several warning signs found",medium:"Some warning signs found",low:"Few warning signs found"}[level]):({high:"کئی خطرے کی علامات ملیں",medium:"احتیاط کی کچھ علامات ملیں",low:"خطرے کی کم علامات ملیں"}[level]);
+ const intro=lang==="en"?({high:"Treat this message with strong caution and verify it independently.",medium:"Pause and verify the sender before acting.",low:"Few patterns were found, but this does not prove the message is safe."}[level]):({high:"اس پیغام سے خاص احتیاط کریں اور الگ ذریعے سے تصدیق کریں۔",medium:"کوئی قدم اٹھانے سے پہلے بھیجنے والے کی تصدیق کریں۔",low:"کم علامات ملیں، مگر اس سے پیغام محفوظ ثابت نہیں ہوتا۔"}[level]);
+ const list=found.length?found.map(x=>"<li>"+esc(x[lang])+"</li>").join(""):"<li>"+(lang==="en"?"No common pattern was detected. A scam may still look normal.":"کوئی معروف علامت نہیں ملی۔ فراڈ کا پیغام عام بھی لگ سکتا ہے۔")+"</li>";
+ r.className="result "+level;
+ r.innerHTML="<h3>"+title+"</h3><p>"+intro+"</p><ul>"+list+"</ul><p class='note'>"+(lang==="en"?"Never share passwords, PINs or OTPs. This is not a final verdict.":"پاس ورڈ، PIN یا OTP کسی کو نہ دیں۔ یہ حتمی فیصلہ نہیں ہے۔")+"</p>";
+}
+$("check").addEventListener("click",checkMessage);
+$("clear").addEventListener("click",()=>{$("message").value="";$("result").className="result hidden";$("result").innerHTML="";});
+document.querySelectorAll("[data-example]").forEach(b=>b.addEventListener("click",()=>{$("message").value=examples[b.dataset.example];checkMessage();}));
+$("language").addEventListener("click",()=>{
+ lang=lang==="en"?"ur":"en";
+ document.documentElement.lang=lang;
+ document.documentElement.dir=lang==="ur"?"rtl":"ltr";
+ document.querySelectorAll("[data-en]").forEach(e=>e.textContent=e.getAttribute("data-"+lang));
+ document.querySelectorAll("[data-en-html]").forEach(e=>e.innerHTML=e.getAttribute("data-"+lang+"-html"));
+ $("message").placeholder=lang==="en"?"Paste your message here...":"یہاں پیغام پیسٹ کریں...";
+ $("language").textContent=lang==="en"?"اردو میں دیکھیں":"View in English";
+ $("check").textContent=lang==="en"?"Check warning signs":"خطرے کی علامات چیک کریں";
+ $("clear").textContent=lang==="en"?"Clear":"صاف کریں";
+ document.querySelectorAll("[data-example]").forEach(b=>b.textContent=b.getAttribute("data-"+lang));
+ if(!$("result").classList.contains("hidden"))checkMessage();
+});
+</script>
 </body>
 </html>
